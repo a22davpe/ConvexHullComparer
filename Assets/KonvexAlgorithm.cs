@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class KonvexAlgorithm
@@ -71,35 +72,33 @@ public static class KonvexAlgorithm
         return (temp > 0) ? 1 : 2;
     }*/
 
-    private static OrientationStates Orientation(BallBehavior po, BallBehavior qo, BallBehavior ro)
+    private static OrientationStates Orientation(BallBehavior Ball1, BallBehavior Ball2, BallBehavior Ball3)
     {
 
-        var q = po.transform.position;
-        var p = qo.transform.position;
-        var r = ro.transform.position;
-        float val = (q.y - p.y) * (r.x - q.x) -
+        var pos1 = Ball1.transform.position;
+        var pos2 = Ball2.transform.position;
+        var pos3 = Ball3.transform.position;
+        
+        //2D cross product
+        float product = (pos3.y - pos2.y) * (pos2.x - pos1.x) - (pos2.y - pos1.y) * (pos3.x - pos2.x);
+            
+            
+            //(pos1.y - pos2.y) * (pos3.x - pos1.x) -
+              //          (pos1.x - pos2.x) * (pos3.y - pos1.y);
 
-                    (q.x - p.x) * (r.y - q.y);
-
-
-
-        switch (val)
+        return product switch
         {
-            case >0:
-                return OrientationStates.Clockwise;
-            case <0:
-                return OrientationStates.CounterClockwise;
-            default:
-                return OrientationStates.Collinear;
-        }
+            > 0 => OrientationStates.CounterClockwise,
+            < 0 => OrientationStates.Clockwise,
+            _ => OrientationStates.Collinear
+        };
     }
     
 
     public static List<BallBehavior> JarvisAlgorithm(List<BallBehavior> points)
     {
-        int n = points.Count;
-        
-        if (n < 3) return null;
+
+        if (points.Count< 3) return null;
         
          List<BallBehavior> hull = new List<BallBehavior>();
 
@@ -109,10 +108,8 @@ public static class KonvexAlgorithm
 
         int leftMostPoint = 0;
 
-        for (int i = 1; i < n; i++)
-
+        for (int i = 1; i < points.Count; i++)
             if (points[i].transform.position.x < points[leftMostPoint].transform.position.x)
-
                 leftMostPoint = i;
 
 
@@ -124,12 +121,12 @@ public static class KonvexAlgorithm
 
             hull.Add(points[previousPoint]);
 
-            currentPoint = (previousPoint + 1) % n;
+            currentPoint = (previousPoint + 1) % points.Count;
 
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < points.Count; i++)
 
             {
-                if (Orientation(points[previousPoint], points[i], points[currentPoint]) == OrientationStates.CounterClockwise)
+                if (Orientation(points[previousPoint], points[currentPoint], points[i]) == OrientationStates.Clockwise)
 
                     currentPoint = i;
             }
@@ -139,5 +136,45 @@ public static class KonvexAlgorithm
         } while (previousPoint != leftMostPoint);
 
         return hull;
+    }
+
+
+    public static List<BallBehavior> GrahamScan(List<BallBehavior> points)
+    {
+        List<BallBehavior> hull = new List<BallBehavior>();
+        // find lägsta till vänster punkten
+        int firstBall = 0;
+        
+        for (int i = 1; i < points.Count; i++)
+            if (points[i].transform.position.y < points[firstBall].transform.position.y || 
+                (points[i].transform.position.y == points[firstBall].transform.position.y && points[i].transform.position.x < points[firstBall].transform.position.x)) 
+                firstBall = i;
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            Vector2 delta = points[i].transform.position - points[firstBall].transform.position;
+            points[i].angle = Mathf.Atan2(delta.y, delta.x);
+        }
+        
+        
+        
+        hull.Add(points[firstBall]);
+
+
+        return hull;
+    }
+    
+    public static void InsertSort(List<BallBehavior> balls)
+    {
+        //https://en.wikipedia.org/wiki/Insertion_sort
+        for (int i = 0; i < balls.Count; i++)
+        {
+            int j = i;
+            while (j > 0 && balls[j-1].angle > balls[j].angle)
+            {
+                (balls[j], balls[j-1]) = (balls[j-1], balls[j]);
+                j--;
+            }
+        }
     }
 }

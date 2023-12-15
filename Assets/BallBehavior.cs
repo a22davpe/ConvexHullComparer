@@ -9,6 +9,7 @@ public class BallBehavior : MonoBehaviour
 {
     public Vector3 direction;
     public float speed;
+    public float angle;
 
     private SpriteRenderer _spriteRenderer;
     // Start is called before the first frame update

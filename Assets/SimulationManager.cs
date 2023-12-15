@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SimulationManager : MonoBehaviour
 {
-    public bool insertSortFailed;
-    public bool gnomeSortFailed;
-    public bool heapSortFailed;
+    public bool jarvisHull;
+    public bool quickHull;
+    public bool grahamScan;
 
     public static Action SimulationHasEnded = delegate {};
     public static Action updateListsNow = delegate {};
@@ -30,7 +31,7 @@ public class SimulationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(insertSortFailed && gnomeSortFailed && heapSortFailed)
+        if(jarvisHull && quickHull && grahamScan)
             EndSimulation();
     }
 
@@ -45,13 +46,13 @@ public class SimulationManager : MonoBehaviour
         switch (sort)
         {
             case "HeapSort":
-                heapSortFailed = true;
+                grahamScan = true;
                 break;
             case "GnomeSort":
-                gnomeSortFailed = true;
+                quickHull = true;
                 break;
             case "InsertSort":
-                insertSortFailed = true;
+                jarvisHull = true;
                 break;
             default:
                 Debug.LogError("ahhhhh");

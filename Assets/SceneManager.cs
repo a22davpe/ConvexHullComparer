@@ -28,7 +28,7 @@ public class SceneManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        _soBalls.Hull = KonvexAlgorithm.JarvisAlgorithm(_soBalls.balls);
+        _soBalls.Hull = KonvexAlgorithm.GrahamScan(_soBalls.balls);
         Vector3[] positions = new Vector3[_soBalls.Hull.Count+1];
         //SortingAlgorithms.HeapSort(_soBalls.balls);
         for (int i = 0; i < _soBalls.Hull.Count; i++)

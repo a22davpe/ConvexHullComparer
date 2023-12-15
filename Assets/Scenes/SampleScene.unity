@@ -205,9 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b545c6d217da0646936ed7f7f237e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insertSortFailed: 0
-  gnomeSortFailed: 0
-  heapSortFailed: 0
+  jarvisHull: 0
+  quickHull: 0
+  grahamScan: 0
 --- !u!4 &459484785
 Transform:
   m_ObjectHideFlags: 0
@@ -352,7 +352,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086254356}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -503,9 +503,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
