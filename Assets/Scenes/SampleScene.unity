@@ -206,8 +206,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jarvisHull: 0
-  quickHull: 0
-  grahamScan: 0
+  grahamScanInsert: 0
+  grahamScanHeap: 0
 --- !u!4 &459484785
 Transform:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 1086254358}
   - component: {fileID: 1086254357}
   m_Layer: 0
-  m_Name: HeapSort
+  m_Name: Jarvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

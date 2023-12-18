@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-
 public class BallBehavior : MonoBehaviour
 {
     public Vector3 direction;

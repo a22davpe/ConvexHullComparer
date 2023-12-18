@@ -7,8 +7,8 @@ using UnityEngine.Serialization;
 public class SimulationManager : MonoBehaviour
 {
     public bool jarvisHull;
-    public bool quickHull;
-    public bool grahamScan;
+    public bool grahamScanInsert;
+    public bool grahamScanHeap;
 
     public static Action SimulationHasEnded = delegate {};
     public static Action updateListsNow = delegate {};
@@ -31,7 +31,7 @@ public class SimulationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(jarvisHull && quickHull && grahamScan)
+        if(jarvisHull && grahamScanInsert && grahamScanHeap)
             EndSimulation();
     }
 
@@ -46,10 +46,10 @@ public class SimulationManager : MonoBehaviour
         switch (sort)
         {
             case "HeapSort":
-                grahamScan = true;
+                grahamScanHeap = true;
                 break;
             case "GnomeSort":
-                quickHull = true;
+                grahamScanInsert = true;
                 break;
             case "InsertSort":
                 jarvisHull = true;

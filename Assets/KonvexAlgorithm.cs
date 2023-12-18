@@ -12,65 +12,6 @@ public static class KonvexAlgorithm
         CounterClockwise,
         Collinear
     }
-    /*
-    public static List<BallBehavior> JarvisAlgorithm(List<BallBehavior> balls)
-    {
-        if (balls.Count < 3)
-        {
-            Debug.LogError("Big NoNo");
-            return new List<BallBehavior>();
-        }
-
-        List<BallBehavior> temp = new List<BallBehavior>();
-
-        //Find leftmost point
-        int leftIndex = 0;
-        for (int i = 0; i < balls.Count; i++)
-        {
-            if (balls[i].transform.position.x < balls[leftIndex].transform.position.x)
-            {
-                leftIndex = i;
-            }
-        }
-        
-        int previousPoint = leftIndex;
-        int currentPoint;
-        int kaka = 0;
-        do
-        {
-            kaka++;
-            //temp.Add(balls[previousPoint]);
-            currentPoint = (previousPoint + 1) % balls.Count;
-            for (int i = 0; i < balls.Count; i++)
-            {
-                if (Orientation(balls[previousPoint], balls[i], balls[currentPoint]) ==
-                    2)
-                {
-                    Debug.Log("a");
-                    currentPoint = i;
-                }
-            }
-
-            previousPoint = currentPoint;
-        } while (previousPoint != leftIndex|| kaka > 100);
-        
-        return temp;
-    }
-    
-    
-
-    private static int Orientation(BallBehavior ball1, BallBehavior ball2, BallBehavior ball3)
-    {
-        var position = ball2.transform.position;
-        var position1 = ball1.transform.position;
-        var position2 = ball3.transform.position;
-        float temp =
-            (position.y - position1.y) * (position2.x - position.x) -
-            (position.x - position1.x) - (position2.y - position.y);
-        if (temp == 0)
-            return 0;
-        return (temp > 0) ? 1 : 2;
-    }*/
 
     private static OrientationStates Orientation(BallBehavior Ball1, BallBehavior Ball2, BallBehavior Ball3)
     {
@@ -138,8 +79,7 @@ public static class KonvexAlgorithm
         return hull;
     }
 
-
-    public static List<BallBehavior> GrahamScan(List<BallBehavior> points)
+    public static List<BallBehavior> GrahamScanHeap(List<BallBehavior> points)
     {
         List<BallBehavior> hull = new List<BallBehavior>();
         // find lägsta till vänster punkten
@@ -156,15 +96,56 @@ public static class KonvexAlgorithm
             points[i].angle = Mathf.Atan2(delta.y, delta.x);
         }
         
+        HeapSort(points);
+        hull.Add(points[0]);
+        hull.Add(points[1]);
+        for (int i = 2; i < points.Count; i++)
+        {
+            while (hull.Count >= 2 && OrientationStates.Clockwise!=Orientation(hull[^1],hull[^2],points[i]))
+            {
+                hull.RemoveAt(hull.Count-1);
+            }
+            hull.Add(points[i]);
+        }
+
+
+        return hull;
+    }
+
+    public static List<BallBehavior> GrahamScanInsert(List<BallBehavior> points)
+    {
+        List<BallBehavior> hull = new List<BallBehavior>();
+        // find lägsta till vänster punkten
+        int firstBall = 0;
         
+        for (int i = 1; i < points.Count; i++)
+            if (points[i].transform.position.y < points[firstBall].transform.position.y || 
+                (points[i].transform.position.y == points[firstBall].transform.position.y && points[i].transform.position.x < points[firstBall].transform.position.x)) 
+                firstBall = i;
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            Vector2 delta = points[i].transform.position - points[firstBall].transform.position;
+            points[i].angle = Mathf.Atan2(delta.y, delta.x);
+        }
         
-        hull.Add(points[firstBall]);
+        InsertSort(points);
+        hull.Add(points[0]);
+        hull.Add(points[1]);
+        for (int i = 2; i < points.Count; i++)
+        {
+            while (hull.Count >= 2 && OrientationStates.Clockwise!=Orientation(hull[^1],hull[^2],points[i]))
+            {
+                hull.RemoveAt(hull.Count-1);
+            }
+            hull.Add(points[i]);
+        }
 
 
         return hull;
     }
     
-    public static void InsertSort(List<BallBehavior> balls)
+    private static void InsertSort(List<BallBehavior> balls)
     {
         //https://en.wikipedia.org/wiki/Insertion_sort
         for (int i = 0; i < balls.Count; i++)
@@ -176,5 +157,46 @@ public static class KonvexAlgorithm
                 j--;
             }
         }
+    }
+    
+    public static void HeapSort(List<BallBehavior> balls)
+    {
+        //https://en.wikipedia.org/wiki/Heapsort
+        //https://fullyunderstood.com/pseudocodes/heap-sort/
+
+        int count = balls.Count;
+
+        for (int i =  (count/2) - 1; i >=0; i--)
+            Heapify(balls,count,i);
+
+        for (int i = count - 1; i > 0; i--)
+        {
+            (balls[0], balls[i]) = (balls[i], balls[0]);
+            Heapify(balls,i,0);
+        }
+    }
+
+    private static void Heapify(List<BallBehavior> balls, int count, int root)
+    {
+        int largestValue = root;
+        int leftNode = 2 * largestValue + 1;
+        int rightNode = 2 * largestValue + 2;
+
+        if (rightNode < count && balls[rightNode].angle > balls[largestValue].angle)
+            largestValue = rightNode;
+        else
+            largestValue = root;
+
+        if (leftNode < count && balls[leftNode].angle > balls[largestValue].angle)
+            largestValue = leftNode;
+
+        if (largestValue != root)
+        {
+            (balls[root], balls[largestValue]) = (balls[largestValue], balls[root]);
+            
+            Heapify(balls,count,largestValue);
+        }
+        
+
     }
 }
