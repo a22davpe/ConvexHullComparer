@@ -129,6 +129,7 @@ public static class KonvexAlgorithm
             points[i].angle = Mathf.Atan2(delta.y, delta.x);
         }
         
+        
         InsertSort(points);
         hull.Add(points[0]);
         hull.Add(points[1]);

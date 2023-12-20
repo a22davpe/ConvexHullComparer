@@ -28,15 +28,25 @@ public class SceneManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        for (int i = 0; i < _soBalls.balls.Count; i++)
+        {
+            _soBalls.balls[i].ChangeColor(Color.white);
+        }
         _soBalls.Hull = KonvexAlgorithm.GrahamScanHeap(_soBalls.balls);
-        Vector3[] positions = new Vector3[_soBalls.Hull.Count+1];
+        Vector3[] positions = new Vector3[_soBalls.Hull.Count];
         //SortingAlgorithms.HeapSort(_soBalls.balls);
         for (int i = 0; i < _soBalls.Hull.Count; i++)
         {
+            if(i==0)
+                _soBalls.Hull[i].ChangeColor(Color.green);
+            else
+            {
+                _soBalls.Hull[i].ChangeColor(Color.red);
+            }
             positions[i] = (_soBalls.Hull[i].transform.position);
         }
 
-        positions[^1] = positions[0];
+        //positions[^1] = positions[0];
 
         _lineRenderer.positionCount = positions.Length;
         _lineRenderer.SetPositions(positions);
