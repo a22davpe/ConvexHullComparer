@@ -23,6 +23,7 @@ public class BaseTest : MonoBehaviour
     public List<float> AverageUpdateTime;
 
     public List<int> AmountOfBalls;
+    [SerializeField] private int nextSceneIndex;
     
     // Start is called before the first frame update
 
@@ -46,10 +47,10 @@ public class BaseTest : MonoBehaviour
         AmountOfBalls = new List<int>();
     }
 
-    public virtual void LateUpdate()
+    public virtual void Update()
     {
         numberOfUpdates++;
-        if (numberOfUpdates>1000)
+        if (numberOfUpdates>100)
         {
             IncreaseAmountOfBalls();
         }
@@ -59,21 +60,30 @@ public class BaseTest : MonoBehaviour
     protected void WriteInDocument()
     {
         Debug.Log("end");
-        using (StreamWriter writer = new StreamWriter(filePath+sortingName+"NumberOfBalls.txt"))
+        using (StreamWriter writer = new StreamWriter(filePath + sortingName + "NumberOfBalls.txt"))
         {
             for (int i = 0; i < AmountOfBalls.Count; i++)
             {
-                writer.Write(AmountOfBalls[i] +";");
+                writer.Write(AmountOfBalls[i] + ";");
             }
         }
-        using (StreamWriter writer = new StreamWriter(filePath+sortingName+"AverageUpdateTime.txt"))
+
+        using (StreamWriter writer = new StreamWriter(filePath + sortingName + "AverageUpdateTime.txt"))
         {
             for (int i = 0; i < AverageUpdateTime.Count; i++)
             {
                 writer.Write(AverageUpdateTime[i] + ";");
             }
         }
-        Application.Quit();
+
+        if (nextSceneIndex < 0)
+        {
+            Application.Quit();
+        }
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneIndex);
+        }
     }
 
     private void IncreaseAmountOfBalls()
@@ -110,7 +120,7 @@ public class BaseTest : MonoBehaviour
     {
         if (HasGoneOverTheTime) return;
         float newAverage = updateTimes.Sum() / updateTimes.Count;
-        AverageUpdateTime.Add(newAverage);
+        AverageUpdateTime.Add(newAverage*1000);
         updateTimes.Clear();
         AmountOfBalls.Add(ballsSO.balls.Count);
     }

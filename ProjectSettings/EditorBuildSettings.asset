@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Jarvis.unity
+    guid: 70d167bd93b366f4496e7011f059634b
+  - enabled: 1
+    path: Assets/Scenes/GrahamScanInsert.unity
+    guid: b791882b5bc7ac44e8a4220276708982
+  - enabled: 1
+    path: Assets/Scenes/GrahamScanHeap.unity
+    guid: 175b5e0bc5c18d14bbe049b2cbf5459d
   m_configObjects: {}

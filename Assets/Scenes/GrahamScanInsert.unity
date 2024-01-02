@@ -123,59 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &222635751
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 222635753}
-  - component: {fileID: 222635752}
-  m_Layer: 0
-  m_Name: GnomeSort
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &222635752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222635751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4199e37b0a0e6c4eacc04cc0cd0c43c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: C:\Temp\DoEP2ElectricPuglo\Assets\
-  sortingName: GnomeSort
-  ballsSO: {fileID: 11400000, guid: 1d8cce36573e97c4b924a619c78968de, type: 2}
-  numberOfUpdates: 0
-  _sceneManager: {fileID: 2000382753}
-  maxTimePerFixedUpdate: 0.1
-  updateTimes: []
-  AverageUpdateTime: []
-  AmountOfBalls: 
---- !u!4 &222635753
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222635751}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &459484783
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,9 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b545c6d217da0646936ed7f7f237e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jarvisHull: 0
-  grahamScanInsert: 0
-  grahamScanHeap: 0
+  sortHasFailed: 0
 --- !u!4 &459484785
 Transform:
   m_ObjectHideFlags: 0
@@ -221,7 +166,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -316,35 +261,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1086254358}
-  - component: {fileID: 1086254357}
+  - component: {fileID: 1086254359}
   m_Layer: 0
-  m_Name: Jarvis
+  m_Name: GrahamScanInsert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1086254357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1086254356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1b2a409fd8a31f40a6ff4fe28603b81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  filePath: C:\Temp\DoEP2ElectricPuglo\Assets\
-  sortingName: HeapSort
-  ballsSO: {fileID: 11400000, guid: 1d8cce36573e97c4b924a619c78968de, type: 2}
-  numberOfUpdates: 0
-  _sceneManager: {fileID: 2000382753}
-  maxTimePerFixedUpdate: 0.1
-  updateTimes: []
-  AverageUpdateTime: []
-  AmountOfBalls: 
 --- !u!4 &1086254358
 Transform:
   m_ObjectHideFlags: 0
@@ -360,37 +284,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1825486116
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1825486118}
-  - component: {fileID: 1825486117}
-  m_Layer: 0
-  m_Name: InsertSort
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1825486117
+--- !u!114 &1086254359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1825486116}
+  m_GameObject: {fileID: 1086254356}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f7b2ade340dcf64a94baa4433f03905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: C:\Temp\DoEP2ElectricPuglo\Assets\
-  sortingName: InsertSort
+  filePath: C:\Temp\EoDit2\Assets\Data\
+  sortingName: GrahamScanInsertTest
   ballsSO: {fileID: 11400000, guid: 1d8cce36573e97c4b924a619c78968de, type: 2}
   numberOfUpdates: 0
   _sceneManager: {fileID: 2000382753}
@@ -398,21 +305,7 @@ MonoBehaviour:
   updateTimes: []
   AverageUpdateTime: []
   AmountOfBalls: 
---- !u!4 &1825486118
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1825486116}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  nextSceneIndex: 2
 --- !u!1 &2000382752
 GameObject:
   m_ObjectHideFlags: 0

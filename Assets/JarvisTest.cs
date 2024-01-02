@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class HeapSortTest : BaseTest
+public class JarvisTest : BaseTest
 {
     // Start is called before the first frame update
     
 
     // Update is called once per frame
-    public override void LateUpdate()
+    public override void Update()
     {
-        base.LateUpdate();
+        base.Update();
         if (HasGoneOverTheTime) return;
         float startTime = Time.realtimeSinceStartup;
-        //SortingAlgorithms.HeapSort(ballsSO.balls);
-        //ballsSO.Hull = KonvexAlgorithm.JarvisAlgorithm(ballsSO.balls);
+        ballsSO.Hull = KonvexAlgorithm.JarvisAlgorithm(ballsSO.balls);
         float endTime = Time.realtimeSinceStartup;
         float deltaTime = endTime - startTime;
         updateTimes.Add(deltaTime);

@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GnomeSortTest : BaseTest
+public class GrahamScanHeapTest : BaseTest
 {
     // Start is called before the first frame updat
 
     // Update is called once per frame
-    public void Update()
+    public override void Update()
     {
+        base.Update();
+    
         if (HasGoneOverTheTime) return;
         List<BallBehavior> copyBallList = new List<BallBehavior>(ballsSO.balls);
         float startTime = Time.realtimeSinceStartup;
-        //SortingAlgorithms.GnomeSort(copyBallList);
+        ballsSO.Hull = KonvexAlgorithm.GrahamScanHeap(ballsSO.balls);
         float endTime = Time.realtimeSinceStartup;
         float deltaTime = endTime - startTime;
         updateTimes.Add(deltaTime);
@@ -24,10 +26,5 @@ public class GnomeSortTest : BaseTest
             UpdateLists();
             HasGoneOverTheTime = true;
         }
-    }
-
-    public override void LateUpdate()
-    {
-        
     }
 }
